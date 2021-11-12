@@ -38,7 +38,7 @@ exports.getLikes = async (req,res) => {
 
 exports.createTrip = async (req,res)=> {
   const {description, url , travelDate} = req.body;
-  if(!description || !url || !travelDate) return res.status(422).json({error:"Please enter all required data"})
+  if(!description || !url ) return res.status(422).json({error:"Please enter all required data"})
   // req.user.password = undefined;
   // req.user.__v = undefined;
   const trip = new Trip ({
@@ -49,7 +49,7 @@ exports.createTrip = async (req,res)=> {
   })
   trip.save()
   .then(response => {
-    // User.updateOne({_id:req.user._id}, {$push : {trips:response._id}}).exec();
+    User.updateOne({_id:req.user._id}, {$push : {trips:response._id}}).exec();
     res.json({post:response, message: 'Trip was successfully created'})
   })
   .catch(err => console.log(err))
