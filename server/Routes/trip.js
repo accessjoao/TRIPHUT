@@ -17,4 +17,6 @@ tripRouter.get('/:tripId/likes', isLogged, tripController.getLikes)
 
 tripRouter.post('/user/:id/trips', isLogged, tripController.getTripByUser)
 
+tripRouter.get('/:tripId/delete',isLogged, tripController.deleteTrip)
+
 module.exports = tripRouter;
