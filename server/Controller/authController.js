@@ -5,7 +5,7 @@ const secretKey = 'SHHH this is a secret'
 
 exports.getUser = async (req,res) => {
   try{
-    const foundUser = await User.findOne({username:req.params.username}).populate('trips', "url _id description postedDate likes").exec();
+    const foundUser = await User.findOne({username:req.params.username}).populate('trips', "url _id description postedDate likes title").exec();
     if(!foundUser) return res.status(422).json({error:'Invalid Username'})
     foundUser.password = undefined;
     res.json({user:foundUser})
