@@ -14,8 +14,10 @@ tripRouter.post('/like', isLogged, tripController.updateLikes)
 tripRouter.post('/createtrip', isLogged,tripController.createTrip)
 
 tripRouter.get('/:tripId/likes', isLogged, tripController.getLikes)
+tripRouter.post('/photos', tripController.updatePhotos)
 
 tripRouter.post('/user/:id/trips', isLogged, tripController.getTripByUser)
+tripRouter.post('/trips/:id', tripController.getTrip)
 
 tripRouter.get('/:tripId/delete',isLogged, tripController.deleteTrip)
 

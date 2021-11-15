@@ -25,6 +25,17 @@ exports.updateLikes = async (req, res) => {
   res.json({message:'Task was completed'})
 }
 
+exports.updatePhotos = async(req,res) => {
+  const {tripId} = req.body;
+  Trip.findOne({ _id: tripId })
+  .then(photo => {
+    Trip.updateOne({_id:tripId}, {$push:{photos:req.body.photo}}).exec();
+    photo.photos = req.body.photos;
+    res.json({trip:photo})
+  })
+  .catch(err => console.log(err))
+}
+
 exports.getLikes = async (req,res) => {
   Trip.findById(req.params.tripId)
   .populate('likes', 'username dp _id fullname followers')
@@ -80,4 +91,19 @@ exports.getTripByUser = async(req,res) => {
     res.status(400).json({err})
   }
   
+}
+
+
+exports.getTrip = async(req,res) => {
+  try{
+    const trip = await Trip.find({_id:req.params.id})
+    .populate("postedBy", "_id username")
+    .exec()
+    if(trip) {res.status(200).json({trip})}
+    else{res.status(422).json({error:"Error getting user trips"})}
+}catch (err){
+  console.log(err)
+  res.status(400).json({err})
+
+}
 }
