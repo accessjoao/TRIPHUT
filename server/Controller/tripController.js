@@ -48,11 +48,12 @@ exports.getLikes = async (req,res) => {
 }
 
 exports.createTrip = async (req,res)=> {
-  const {description, url , travelDate} = req.body;
+  const {description, url , travelDate, title} = req.body;
   if(!description || !url ) return res.status(422).json({error:"Please enter all required data"})
   // req.user.password = undefined;
   // req.user.__v = undefined;
   const trip = new Trip ({
+    title,
     description,
     url,
     travelDate,

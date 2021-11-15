@@ -2,7 +2,11 @@ const mongoose = require('../db');
 const { ObjectId } = mongoose.Schema.Types;
 
 const TripSchema = new mongoose.Schema({
-description: {
+
+title:{
+  type:String
+},
+  description: {
     type: String,
     required: true
 },
